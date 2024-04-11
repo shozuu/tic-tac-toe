@@ -55,8 +55,13 @@ const Game = (() => {
         });
     }
 
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0]? players[1] : players[0];
+    }
 
-    return {start, eventListen}
+    const getActivePlayer = () => activePlayer;
+
+    return {start, eventListen, switchPlayerTurn, getActivePlayer}
 })();
 
 const startButton = document.querySelector('.start-button');
