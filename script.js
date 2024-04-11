@@ -26,7 +26,21 @@ const Game = (() => {
         activePlayer = players[0];
         Gameboard.render();
     }
-    return {start}
+
+    const eventListen = () => {
+        const squares = document.querySelectorAll('.square')
+        squares.forEach(square => {
+            square.addEventListener('click', (event) => {
+                const squareIndex = parseInt((event.target.id).slice(7));
+                console.log(squareIndex)
+                Gameboard.setValue(squareIndex, activePlayer)
+                switchPlayerTurn();
+            })
+        });
+    }
+
+
+    return {start, eventListen}
 })();
 
 const startButton = document.querySelector('.start-button');
