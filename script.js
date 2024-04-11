@@ -55,6 +55,10 @@ const Game = (() => {
         });
     }
 
+    // const playRound = () => {
+        
+    // }
+
     const switchPlayerTurn = () => {
         activePlayer = activePlayer === players[0]? players[1] : players[0];
     }
@@ -64,7 +68,14 @@ const Game = (() => {
     return {start, eventListen, switchPlayerTurn, getActivePlayer}
 })();
 
+
+
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', () => {  
     Game.start();
+})
+
+const restartButton = document.querySelector('.restart-button');
+restartButton.addEventListener('click', () => {
+    console.log('working')
 })
