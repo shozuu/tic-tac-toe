@@ -13,6 +13,22 @@ const Gameboard = (() => {
     return {render}
 })();
 
+const Game = (() => {
+    let players = []
+    let activePlayer;
+
+
+    const start = () => {
+        players = [
+            Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
+            Gameboard.createPlayer(document.querySelector('.player2').value, '0')
+        ]
+        activePlayer = players[0];
+        Gameboard.render();
+    }
+    return {start}
+})();
+
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', () => {  
     Game.start();
