@@ -10,7 +10,23 @@ const Gameboard = (() => {
         });
         Game.eventListen();
     }
-    return {render}
+
+    const createPlayer = (playerName, playerSymbol) => {
+        playerName,
+        playerSymbol
+
+        const getPlayerName = () => playerName;
+        const getPlayerSymbol = () => playerSymbol;
+        return {getPlayerName, getPlayerSymbol}
+    }
+
+    const setValue = (squareIndex, activePlayer) => {
+        gameboard[squareIndex] = activePlayer.getPlayerSymbol();
+        console.log(gameboard[squareIndex])
+        render();
+    }
+
+    return {render, createPlayer, setValue}
 })();
 
 const Game = (() => {
