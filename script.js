@@ -1,6 +1,8 @@
 const Gameboard = (() => {
     let gameboard = ['', '', '', '', '', '', '', '', ''];
 
+    const getGameboard = () => gameboard;
+
     const render = () => {
         const boardContainer = document.querySelector('.gameboard');
         boardContainer.innerHTML = '';
@@ -22,12 +24,12 @@ const Gameboard = (() => {
 
     const setValue = (squareIndex, activePlayer) => {
         if (gameboard[squareIndex] != '') return
-
         gameboard[squareIndex] = activePlayer.getPlayerSymbol();
         render();
+        Game.checkWin();
     }
 
-    return {render, createPlayer, setValue}
+    return {getGameboard, render, createPlayer, setValue}
 })();
 
 const Game = (() => {
@@ -38,7 +40,7 @@ const Game = (() => {
     const start = () => {
         players = [
             Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
-            Gameboard.createPlayer(document.querySelector('.player2').value, '0')
+            Gameboard.createPlayer(document.querySelector('.player2').value, 'O')
         ]
         activePlayer = players[0];
         Gameboard.render();
@@ -49,15 +51,48 @@ const Game = (() => {
         squares.forEach(square => {
             square.addEventListener('click', (event) => {
                 const squareIndex = parseInt((event.target.id).slice(7));
-                Gameboard.setValue(squareIndex, activePlayer, squareClicked)
+                Gameboard.setValue(squareIndex, activePlayer)
                 switchPlayerTurn();
             })
         });
     }
 
-    // const playRound = () => {
-        
-    // }
+    const checkWin = () => {
+        const winCombos = [
+            [0, 1, 2],
+            [0, 3, 6],
+            [0, 4, 8],
+            [1, 4, 7],
+            [2, 5, 8],
+            [2, 4, 6],
+            [3, 4, 5],
+            [6, 7, 8]
+        ]
+        console.log(Gameboard.getGameboard())
+        let gameboard = Gameboard.getGameboard();
+        let X = []
+        let O = []
+
+        gameboard.forEach((square, index) => {
+            if (square === 'X') {
+                X.push(index)
+            }
+            else if (square === 'O') {
+                O.push(index)
+            }
+            else return;
+        });
+
+        winCombos.forEach(combo => {
+            console.log('combo:', combo)
+            let result = X.includes(combo);
+            console.log(result, X)
+            // if (result === 'false') console.log('true')
+            //maybe because the one you are checking also has [] counted so it always returns false
+        });
+
+        console.log('x: ', X, 'o: ', O)
+    }
 
     const switchPlayerTurn = () => {
         activePlayer = activePlayer === players[0]? players[1] : players[0];
@@ -65,7 +100,7 @@ const Game = (() => {
 
     const getActivePlayer = () => activePlayer;
 
-    return {start, eventListen, switchPlayerTurn, getActivePlayer}
+    return {start, eventListen, checkWin, switchPlayerTurn, getActivePlayer}
 })();
 
 
