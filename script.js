@@ -21,8 +21,9 @@ const Gameboard = (() => {
     }
 
     const setValue = (squareIndex, activePlayer) => {
+        if (gameboard[squareIndex] != '') return
+
         gameboard[squareIndex] = activePlayer.getPlayerSymbol();
-        console.log(gameboard[squareIndex])
         render();
     }
 
@@ -48,8 +49,7 @@ const Game = (() => {
         squares.forEach(square => {
             square.addEventListener('click', (event) => {
                 const squareIndex = parseInt((event.target.id).slice(7));
-                console.log(squareIndex)
-                Gameboard.setValue(squareIndex, activePlayer)
+                Gameboard.setValue(squareIndex, activePlayer, squareClicked)
                 switchPlayerTurn();
             })
         });
@@ -78,4 +78,5 @@ startButton.addEventListener('click', () => {
 const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
     console.log('working')
+    // Game.restart();
 })
