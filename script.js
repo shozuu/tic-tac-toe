@@ -35,6 +35,7 @@ const Gameboard = (() => {
 const Game = (() => {
     let players = []
     let activePlayer;
+    let roundOver;
 
 
     const start = () => {
@@ -57,7 +58,18 @@ const Game = (() => {
         });
     }
 
+    const switchPlayerTurn = () => {
+        activePlayer = activePlayer === players[0]? players[1] : players[0];
+    }
+
+    const getActivePlayer = () => activePlayer;
+
     const checkWin = () => {
+        let gameboard = Gameboard.getGameboard();
+        console.log(gameboard)
+        let tieCondition = gameboard.every((square) => square != '');
+        let X = []
+        let O = []
         const winCombos = [
             [0, 1, 2],
             [0, 3, 6],
@@ -68,10 +80,6 @@ const Game = (() => {
             [3, 4, 5],
             [6, 7, 8]  
         ]
-        let gameboard = Gameboard.getGameboard();
-        console.log(gameboard)
-        let X = []
-        let O = []
 
         gameboard.forEach((square, index) => {
             if (square === 'X') {
@@ -83,22 +91,48 @@ const Game = (() => {
             else return;
         });
 
-        let resultX = winCombos.some((combo) => combo.every((element) => X.includes(element)))
-
-        let resultO = winCombos.some((combo) => combo.every((element) => O.includes(element)))
+        let resultX = winCombos.some((combo) => combo.every((element) => X.includes(element)));
+        let resultO = winCombos.some((combo) => combo.every((element) => O.includes(element)));
 
         console.log(resultX, resultO)
 
-        console.log('x: ', X, 'o: ', O)
+        if (resultX === true) {
+            console.log('x is the winner!')
+            // endGame();
+            scoreboard().XAddScore();
+        }
+        else if (resultO ===  true) {
+            console.log('O is the winner!')
+            // endGame();
+            scoreboard().XAddScore();
+        }
+        else if (tieCondition === true && resultX === false && resultO === false) {
+            console.log('its a tie')
+            scoreboard().tieAddScore();
+        }
     }
 
-    const switchPlayerTurn = () => {
-        activePlayer = activePlayer === players[0]? players[1] : players[0];
+    const scoreboard = () => {
+        let XScore = 0;
+        let tie = 0;
+        let OScore = 0;
+
+        const XAddScore = () => XScore++;
+        const tieAddScore = () => tie++;
+        const OAddScore = () => OScore++;
+
+        const getXScore = () => XScore;
+        const getTie = () => tie;
+        const getOScore = () => OScore;
+    
+
+        console.log('hilo')
+        //first to 3 wins or ties then reset all including scores
+        //if not yet 3, every new round will only clear the screen, keeping the scores
+        return {XAddScore, tieAddScore, OAddScore,  getXScore, getTie, getOScore}
     }
 
-    const getActivePlayer = () => activePlayer;
-
-    return {start, eventListen, checkWin, switchPlayerTurn, getActivePlayer}
+    return {start, eventListen, checkWin}
 })();
 
 
