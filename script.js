@@ -54,6 +54,7 @@ const Game = (() => {
         const squares = document.querySelectorAll('.square')
         squares.forEach(square => {
             square.addEventListener('click', (event) => {
+                if (roundOver === true) return;
                 const squareIndex = parseInt((event.target.id).slice(7));
                 Gameboard.setValue(squareIndex, activePlayer)
                 switchPlayerTurn();
@@ -99,17 +100,17 @@ const Game = (() => {
         if (resultX === true) {
             scoreboard().XAddScore();
             console.log('x is the winner!', scoreboard().getXScore())
-            // endRound();
+            endRound();
         }
         else if (resultO ===  true) {
             scoreboard().XAddScore();
             console.log('O is the winner!'), scoreboard().getTie()
-            // endRound();
+            endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
             scoreboard().tieAddScore();
             console.log('its a tie', scoreboard().getOScore())
-            // endRound();
+            endRound();
         }
     }
 
@@ -127,6 +128,10 @@ const Game = (() => {
         //first to 3 wins or ties then reset all including scores
         //if not yet 3, every new round will only clear the screen, keeping the scores
         return {XAddScore, tieAddScore, OAddScore,  getXScore, getTie, getOScore}
+    }
+
+    const endRound = () => {
+        roundOver = true;
     }
 
     return {start, eventListen, checkWin}
