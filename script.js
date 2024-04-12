@@ -4,6 +4,7 @@ const Gameboard = (() => {
     const getGameboard = () => gameboard;
 
     const render = () => {
+        Game.setRoundToFalse()
         const boardContainer = document.querySelector('.gameboard');
         boardContainer.innerHTML = '';
 
@@ -29,7 +30,11 @@ const Gameboard = (() => {
         Game.checkWin();
     }
 
-    return {getGameboard, render, createPlayer, setValue}
+    const resetGameboard = () => {
+        gameboard = ['', '', '', '', '', '', '', '', ''];
+    }
+
+    return {getGameboard, render, createPlayer, setValue, resetGameboard}
 })();
 
 const Game = (() => {
@@ -103,13 +108,13 @@ const Game = (() => {
             endRound();
         }
         else if (resultO ===  true) {
-            scoreboard().XAddScore();
-            console.log('O is the winner!'), scoreboard().getTie()
+            scoreboard().OAddScore();
+            console.log('O is the winner!', scoreboard().getOScore())
             endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
             scoreboard().tieAddScore();
-            console.log('its a tie', scoreboard().getOScore())
+            console.log('its a tie', scoreboard().getTie())
             endRound();
         }
     }
@@ -132,9 +137,12 @@ const Game = (() => {
 
     const endRound = () => {
         roundOver = true;
+        Gameboard.resetGameboard();
+        Gameboard.render();
     }
 
-    return {start, eventListen, checkWin}
+    const setRoundToFalse = () => roundOver = 'false';
+    return {start, eventListen, checkWin, setRoundToFalse}
 })();
 
 
