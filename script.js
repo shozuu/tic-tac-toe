@@ -36,6 +36,9 @@ const Game = (() => {
     let players = []
     let activePlayer;
     let roundOver;
+    let XScore = 0;
+    let tie = 0;
+    let OScore = 0;
 
 
     const start = () => {
@@ -66,7 +69,6 @@ const Game = (() => {
 
     const checkWin = () => {
         let gameboard = Gameboard.getGameboard();
-        console.log(gameboard)
         let tieCondition = gameboard.every((square) => square != '');
         let X = []
         let O = []
@@ -94,29 +96,24 @@ const Game = (() => {
         let resultX = winCombos.some((combo) => combo.every((element) => X.includes(element)));
         let resultO = winCombos.some((combo) => combo.every((element) => O.includes(element)));
 
-        console.log(resultX, resultO)
-
         if (resultX === true) {
-            console.log('x is the winner!')
-            // endGame();
             scoreboard().XAddScore();
+            console.log('x is the winner!', scoreboard().getXScore())
+            // endRound();
         }
         else if (resultO ===  true) {
-            console.log('O is the winner!')
-            // endGame();
             scoreboard().XAddScore();
+            console.log('O is the winner!'), scoreboard().getTie()
+            // endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
-            console.log('its a tie')
             scoreboard().tieAddScore();
+            console.log('its a tie', scoreboard().getOScore())
+            // endRound();
         }
     }
 
     const scoreboard = () => {
-        let XScore = 0;
-        let tie = 0;
-        let OScore = 0;
-
         const XAddScore = () => XScore++;
         const tieAddScore = () => tie++;
         const OAddScore = () => OScore++;
