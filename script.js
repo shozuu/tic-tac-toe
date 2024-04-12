@@ -66,10 +66,10 @@ const Game = (() => {
             [2, 5, 8],
             [2, 4, 6],
             [3, 4, 5],
-            [6, 7, 8]
+            [6, 7, 8]  
         ]
-        console.log(Gameboard.getGameboard())
         let gameboard = Gameboard.getGameboard();
+        console.log(gameboard)
         let X = []
         let O = []
 
@@ -83,13 +83,11 @@ const Game = (() => {
             else return;
         });
 
-        winCombos.forEach(combo => {
-            console.log('combo:', combo)
-            let result = X.includes(combo);
-            console.log(result, X)
-            // if (result === 'false') console.log('true')
-            //maybe because the one you are checking also has [] counted so it always returns false
-        });
+        let resultX = winCombos.some((combo) => combo.every((element) => X.includes(element)))
+
+        let resultO = winCombos.some((combo) => combo.every((element) => O.includes(element)))
+
+        console.log(resultX, resultO)
 
         console.log('x: ', X, 'o: ', O)
     }
