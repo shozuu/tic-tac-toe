@@ -24,8 +24,10 @@ const Gameboard = (() => {
     }
 
     const setValue = (squareIndex, activePlayer) => {
-        if (gameboard[squareIndex] != '') return
+        if (gameboard[squareIndex] != '') return;
         gameboard[squareIndex] = activePlayer.getPlayerSymbol();
+        
+        Game.switchPlayerTurn();
         render();
         Game.checkWin();
     }
@@ -63,7 +65,6 @@ const Game = (() => {
                 if (roundOver === true) return;
                 const squareIndex = parseInt((event.target.id).slice(7));
                 Gameboard.setValue(squareIndex, activePlayer)
-                switchPlayerTurn();
             })
         });
     }
