@@ -137,12 +137,13 @@ const Game = (() => {
 
     const endRound = () => {
         roundOver = true;
+        switchPlayerTurn();
         Gameboard.resetGameboard();
         Gameboard.render();
     }
 
     const setRoundToFalse = () => roundOver = 'false';
-    return {start, eventListen, checkWin, setRoundToFalse}
+    return {start, eventListen, switchPlayerTurn, getActivePlayer, checkWin, setRoundToFalse}
 })();
 
 
@@ -154,6 +155,9 @@ startButton.addEventListener('click', () => {
 
 const restartButton = document.querySelector('.restart-button');
 restartButton.addEventListener('click', () => {
-    console.log('working')
-    // Game.restart();
+    if (Game.getActivePlayer().getPlayerSymbol() === 'O') {
+        Game.switchPlayerTurn()
+    }
+    Gameboard.resetGameboard();
+    Gameboard.render();
 })
