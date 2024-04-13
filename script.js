@@ -47,6 +47,7 @@ const Game = (() => {
 
 
     const start = () => {
+        if(players.length != 0) return
         players = [
             Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
             Gameboard.createPlayer(document.querySelector('.player2').value, 'O')
@@ -105,7 +106,7 @@ const Game = (() => {
         if (resultX === true) {
             scoreboard().XAddScore();
             console.log('x is the winner!', scoreboard().getXScore())
-            endRound();
+            endRound();//endround should be in next round button
         }
         else if (resultO ===  true) {
             scoreboard().OAddScore();
@@ -127,11 +128,7 @@ const Game = (() => {
         const getXScore = () => XScore;
         const getTie = () => tie;
         const getOScore = () => OScore;
-    
 
-        console.log('hilo')
-        //first to 3 wins or ties then reset all including scores
-        //if not yet 3, every new round will only clear the screen, keeping the scores
         return {XAddScore, tieAddScore, OAddScore,  getXScore, getTie, getOScore}
     }
 
