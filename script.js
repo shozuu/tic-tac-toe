@@ -78,8 +78,9 @@ const Game = (() => {
     const checkWin = () => {
         let gameboard = Gameboard.getGameboard();
         let tieCondition = gameboard.every((square) => square != '');
-        let X = []
-        let O = []
+        let X = [];
+        let O = [];
+        let winningCombo = [];
         const winCombos = [
             [0, 1, 2],
             [0, 3, 6],
@@ -89,7 +90,7 @@ const Game = (() => {
             [2, 4, 6],
             [3, 4, 5],
             [6, 7, 8]  
-        ]
+        ];
 
         gameboard.forEach((square, index) => {
             if (square === 'X') {
@@ -106,17 +107,17 @@ const Game = (() => {
 
         if (resultX === true) {
             scoreboard().XAddScore();
-            console.log('x is the winner!', scoreboard().getXScore())
-            endRound();//endround should be in next round button
+            DisplayMessage.showXScore();
+            endRound();
         }
         else if (resultO ===  true) {
             scoreboard().OAddScore();
-            console.log('O is the winner!', scoreboard().getOScore())
+            DisplayMessage.showOScore();
             endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
             scoreboard().tieAddScore();
-            console.log('its a tie', scoreboard().getTie())
+            DisplayMessage.showTieScore();
             endRound();
         }
     }
@@ -136,12 +137,33 @@ const Game = (() => {
     const endRound = () => {
         roundOver = true;
         switchPlayerTurn();
-        Gameboard.resetGameboard();
-        Gameboard.render();
+        // Gameboard.resetGameboard();
+        // Gameboard.render();
     }
 
     const setRoundToFalse = () => roundOver = 'false';
-    return {start, eventListen, switchPlayerTurn, getActivePlayer, checkWin, setRoundToFalse}
+
+    return {start, eventListen, switchPlayerTurn, getActivePlayer, checkWin, scoreboard, setRoundToFalse}
+})();
+
+const DisplayMessage = (() => {
+    const player1Score = document.querySelector('.player1Score');
+    const player2Score = document.querySelector('.player2Score');
+    const tieScore = document.querySelector('.tie');
+
+    const showXScore = () => {
+        player1Score.textContent = Game.scoreboard().getXScore();
+    }
+
+    const showOScore = () => {
+        player2Score.textContent = Game.scoreboard().getOScore();
+    }
+
+    const showTieScore = () => {
+        tieScore.textContent = Game.scoreboard().tieScore();
+    }
+
+    return {showXScore, showOScore, showTieScore}
 })();
 
 
