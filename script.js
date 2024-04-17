@@ -47,13 +47,35 @@ const Game = (() => {
     let tie = 0;
     let OScore = 0;
 
-
     const start = () => {
         if(players.length != 0) return
-        players = [
-            Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
-            Gameboard.createPlayer(document.querySelector('.player2').value, 'O')
-        ]
+
+        if (document.querySelector('.player1').value === '' && document.querySelector('.player2').value === '') {
+            players = [
+                Gameboard.createPlayer('Player1', 'X'),
+                Gameboard.createPlayer('Player2', 'O')
+            ]
+        }
+        else if (document.querySelector('.player1').value === '' && document.querySelector('.player2').value != '') {
+            players = [
+                Gameboard.createPlayer('Player1', 'X'),
+                Gameboard.createPlayer(document.querySelector('.player2').value, 'O')
+            ]
+        }
+        else if (document.querySelector('.player1').value != '' && document.querySelector('.player2').value === '') {
+            players = [
+                Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
+                Gameboard.createPlayer('Player2', 'O')
+            ]
+        }
+        else {
+
+            players = [
+                Gameboard.createPlayer(document.querySelector('.player1').value, 'X'),
+                Gameboard.createPlayer(document.querySelector('.player2').value, 'O')
+            ]
+        }
+        
         activePlayer = players[0];
         Gameboard.render();
     }
