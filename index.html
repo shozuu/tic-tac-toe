@@ -5,15 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tic-tac-toe</title>
     <link rel="stylesheet" href="styles.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    </style>
     <script src="script.js" defer></script>
 </head>
 <body>
+    <div class="mask inactive">
+        <div class="container">
+            <img src="content.svg" alt="logo">
+            <div class="input-container">
+                <div class="prompt">Please enter player names</div>
+                <div class="user-input">
+                    <input type="text" class="player1" placeholder="Player1">
+                    <input type="text" class="player2" placeholder="Player2">
+                </div>
+            </div>
+            <button class="start-button">Start</button>
+        </div>
+    </div>
+
     <h1>Tic Tac Toe</h1>
     <div class="gameboard"></div>
     <div class="controls">
-        <input type="text" class="player1" placeholder="player1 Name">
-        <input type="text" class="player2" placeholder="player2 Name">
-        <button class="start-button">start game</button>
         <button class="restart-button">restart game</button>
         <div class="player1Score">0</div>
         <div class="tie">0</div>
