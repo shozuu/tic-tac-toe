@@ -55,9 +55,19 @@ body {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
     padding: 10px;
-    border: 1px solid black;
+    border: 3px solid #282828;
+    outline: none;
     border-radius: 5px;
     width: 200px;
+}
+.user-input input:focus,
+.user-input input:not(:placeholder-shown) {
+    border: 3px solid #F9B217;
+}
+
+.user-input input~input:focus,
+.user-input input~input:not(:placeholder-shown) {
+    border: 3px solid #0D98BA;
 }
 
 .start-button {
