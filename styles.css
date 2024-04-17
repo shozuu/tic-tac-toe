@@ -4,7 +4,84 @@
     box-sizing: border-box;
 }
 
-.gameboard{
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #121212;
+}
+
+.mask {
+    background-color: #121212;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.container img {
+    height: 250px;
+    width: auto;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.input-container {
+    background-color: #282828;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.prompt {
+    color: #EEE9DB;
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 30px;
+}
+
+.user-input {
+    display: flex;
+    gap: 20px;
+}
+
+.user-input input {
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 200px;
+}
+
+.start-button {
+    background-color: #F9B217;
+    width: 250px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    font-family: inherit;
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.start-button:hover {
+    background-color: #0D98BA;
+}
+
+.inactive {
+    /* display: none; */
+}
+
+
+.gameboard {
     border: 1px solid black;
     width: 500px;
     height: 500px;
