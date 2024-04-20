@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    user-select: none;
 }
 
 body {
@@ -10,14 +11,17 @@ body {
 }
 
 .mask {
-    background-color: #121212;
     height: 100vh;
     width: 100vw;
-    position: absolute;
+    position: fixed;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.inactive {
+    display: none;
 }
 
 .container img {
@@ -87,19 +91,125 @@ body {
     background-color: #0D98BA;
 }
 
-.inactive {
-    display: none;
+.main {
+    height: 100vh;
+    max-width: 1180px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
 }
 
+.navbar {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    justify-items: center;
+    align-items: center;
+}
+
+.navbar img {
+    width: 150px;
+    height: 150px;
+}
+
+.player-turn {
+    background-color: #EEE9DB;
+    width: 200px;
+    margin: 0 auto;
+    padding: 15px 30px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.navbar .restart-button {
+    background-color: #EEE9DB;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    width: 50px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.navbar .restart-button img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
 
 .gameboard {
-    border: 1px solid black;
-    width: 500px;
-    height: 500px;
+    margin: 0 auto;
+    width: 400px;
+    height: 400px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
 }
 
 .square {
-    border: 1px solid red;
+    border: 2px solid #4d4b4b;
+    border-radius: 10px;
+    background-color: #282828;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+    font-weight: 600;
+    position: relative;
+}
+
+.square p {
+    position: absolute;
+    top: 50;
+    left: 50;
+}
+
+.scoreboards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.g1,
+.g2,
+.g3 {
+    padding: 10px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 300px;
+    border-radius: 10px;
+}
+
+.g1 {
+    background-color: #F9B217;
+}
+
+.g2 {
+    background-color: #EEE9DB;
+}
+
+.g3 {
+    background-color: #0D98BA;
+}
+
+.player1Name,
+.player2Name,
+.playerTie {
+    font-weight: 500;
+    letter-spacing: 2px;
+}
+
+.player1Score,
+.player2Score,
+.tie {
+    font-size: 20px;
+    font-weight: 600;
 }
