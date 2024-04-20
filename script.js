@@ -9,7 +9,17 @@ const Gameboard = (() => {
         boardContainer.innerHTML = '';
 
         gameboard.forEach((square, index) => {
-            boardContainer.innerHTML += `<div class='square' id='square-${index}'><p>${square}</p></div>`;// square is the value of the current element
+
+            if (square === 'X') {
+                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p style='color:#F9B217'>${square}</p></div>`;// square is the value of the current element
+            }
+            else if (square === 'O') {
+                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p style='color:#0D98BA'>${square}</p></div>`;// square is the value of the current element
+            }
+            else {
+                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p>${square}</p></div>`;// square is the value of the current element
+            }
+            
         });
         Game.eventListen();
     }
