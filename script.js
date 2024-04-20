@@ -193,6 +193,12 @@ const DisplayMessage = (() => {
 const startButton = document.querySelector('.start-button');
 startButton.addEventListener('click', () => {  
     Game.start();
+
+    const mask = document.querySelector('.mask');
+    mask.addEventListener('click', () => {
+        mask.classList.add('inactive');
+    })
+
 })
 
 const restartButton = document.querySelector('.restart-button');
