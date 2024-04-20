@@ -24,16 +24,27 @@
             <button class="start-button">Start</button>
         </div>
     </div>
-
-    <h1>Tic Tac Toe</h1>
-    <div class="gameboard"></div>
-    <div class="controls">
-        <button class="restart-button">restart game</button>
-        <div class="player1Score">0</div>
-        <div class="tie">0</div>
-        <div class="player2Score">0</div>
+    <div class="main">
+        <div class="navbar">
+            <img src="content.svg" alt="logo">
+            <div class="player-turn">Player1's turn</div>
+            <div class="restart-button"><img src="assets/restart.png" alt="restart"></div>
+        </div>
+        <div class="gameboard"></div>
+        <div class="scoreboards">
+            <div class="g1">
+                <div class="player1Name">Player1</div>
+                <div class="player1Score">0</div>
+            </div>
+            <div class="g2">
+                <div class="playerTie">Ties</div>
+                <div class="tie">0</div>
+            </div>
+            <div class="g3">
+                <div class="player2Name">Player2</div>
+                <div class="player2Score">0</div>
+            </div>
+        </div>
     </div>
-    <div class="message"></div>
-    <div class="result-display"></div>
 </body>
 </html>
