@@ -14,10 +14,10 @@ const Gameboard = (() => {
                 boardContainer.innerHTML += `<div class='square' id='square-${index}'><p style='color:#F9B217'>${square}</p></div>`;// square is the value of the current element
             }
             else if (square === 'O') {
-                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p style='color:#0D98BA'>${square}</p></div>`;// square is the value of the current element
+                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p style='color:#0D98BA'>${square}</p></div>`;
             }
             else {
-                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p>${square}</p></div>`;// square is the value of the current element
+                boardContainer.innerHTML += `<div class='square' id='square-${index}'><p>${square}</p></div>`;
             }
             
         });
@@ -38,6 +38,7 @@ const Gameboard = (() => {
         gameboard[squareIndex] = activePlayer.getPlayerSymbol();
         
         Game.switchPlayerTurn();
+        DisplayMessage.showPlayerTurn()
         render();
         Game.checkWin();
     }
@@ -87,6 +88,7 @@ const Game = (() => {
         }
         
         activePlayer = players[0];
+        DisplayMessage.showPlayerTurn();
         Gameboard.render();
     }
 
@@ -140,16 +142,19 @@ const Game = (() => {
         if (resultX === true) {
             scoreboard().XAddScore();
             DisplayMessage.showXScore();
+            DisplayMessage.showPlayerWin()
             endRound();
         }
         else if (resultO ===  true) {
             scoreboard().OAddScore();
             DisplayMessage.showOScore();
+            DisplayMessage.showPlayerWin()
             endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
             scoreboard().tieAddScore();
             DisplayMessage.showTieScore();
+            DisplayMessage.showPlayerWin()
             endRound();
         }
     }
@@ -169,8 +174,6 @@ const Game = (() => {
     const endRound = () => {
         roundOver = true;
         switchPlayerTurn();
-        // Gameboard.resetGameboard();
-        // Gameboard.render();
     }
 
     const setRoundToFalse = () => roundOver = 'false';
@@ -182,6 +185,15 @@ const DisplayMessage = (() => {
     const player1Score = document.querySelector('.player1Score');
     const player2Score = document.querySelector('.player2Score');
     const tieScore = document.querySelector('.tie');
+    const playerTurn = document.querySelector('.player-turn');
+
+    const showPlayerTurn = () => {
+        playerTurn.innerHTML = `${Game.getActivePlayer().getPlayerName()}'s Turn`;
+    }
+
+    const showPlayerWin = () => {
+        playerTurn.innerHTML = `${Game.getActivePlayer().getPlayerName()} Wins!`;
+    }
 
     const showXScore = () => {
         player1Score.textContent = Game.scoreboard().getXScore();
@@ -195,7 +207,7 @@ const DisplayMessage = (() => {
         tieScore.textContent = Game.scoreboard().tieScore();
     }
 
-    return {showXScore, showOScore, showTieScore}
+    return {showPlayerTurn, showPlayerWin, showXScore, showOScore, showTieScore}
 })();
 
 
