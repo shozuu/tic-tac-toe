@@ -139,6 +139,28 @@ const Game = (() => {
 
         let resultX = winCombos.some((combo) => combo.every((element) => X.includes(element)));
         let resultO = winCombos.some((combo) => combo.every((element) => O.includes(element)));
+        let colorCombo = [];
+
+        winCombos.forEach(combo => {
+            if (combo.every((element) => X.includes(element))) {
+                if (colorCombo != '') return
+
+                combo.forEach(element => {
+                    colorCombo.push(element)
+                });
+                
+                DisplayMessage.colorTiles(colorCombo, gameboard);
+            }
+            if (combo.every((element) => O.includes(element))) {
+                if (colorCombo != '') return
+                
+                combo.forEach(element => {
+                    colorCombo.push(element)
+                });
+                
+                DisplayMessage.colorTiles(colorCombo, gameboard);
+            }
+        });
 
         if (resultX === true) {
             scoreboard().XAddScore();
@@ -158,7 +180,6 @@ const Game = (() => {
             DisplayMessage.showPlayerTie();
             endRound();
         }
-        console.log('wala')
     }
 
     const scoreboard = () => {
@@ -175,8 +196,6 @@ const Game = (() => {
 
     const endRound = () => {
         roundOver = true;
-        
-        console.log(getActivePlayer().getPlayerName())
     }
 
     const setRoundToFalse = () => roundOver = false;
@@ -216,7 +235,24 @@ const DisplayMessage = (() => {
         tieScore.textContent = Game.scoreboard().getTie();
     }
 
-    return {showPlayerTurn, showPlayerWin, showPlayerTie, showXScore, showOScore, showTieScore}
+    const colorTiles = (colorCombo, gameboard) => {
+        const squares = document.querySelectorAll('.square')
+
+        if (Game.getActivePlayer().getPlayerSymbol() === 'X') {
+            colorCombo.forEach(index => {
+                squares[index].style.backgroundColor = '#F9B217'
+                squares[index].innerHTML = '<p style="color:#121212">X</p>';
+            });
+        }
+        else if (Game.getActivePlayer().getPlayerSymbol() === 'O') {
+            colorCombo.forEach(index => {
+                squares[index].style.backgroundColor = '#0D98BA'
+                squares[index].innerHTML = '<p style="color:#121212">O</p>';
+            });
+        }
+    }
+
+    return {showPlayerTurn, showPlayerWin, showPlayerTie, showXScore, showOScore, showTieScore, colorTiles}
 })();
 
 
@@ -238,5 +274,6 @@ restartButton.addEventListener('click', () => {
         Game.switchPlayerTurn()
     }
     Gameboard.resetGameboard();
+    DisplayMessage.showPlayerTurn();
     Gameboard.render();
 })
