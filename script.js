@@ -149,7 +149,7 @@ const Game = (() => {
                     colorCombo.push(element)
                 });
                 
-                DisplayMessage.colorTiles(colorCombo, gameboard);
+                DisplayMessage.colorTiles(colorCombo);
             }
             if (combo.every((element) => O.includes(element))) {
                 if (colorCombo != '') return
@@ -235,7 +235,7 @@ const DisplayMessage = (() => {
         tieScore.textContent = Game.scoreboard().getTie();
     }
 
-    const colorTiles = (colorCombo, gameboard) => {
+    const colorTiles = (colorCombo) => {
         const squares = document.querySelectorAll('.square')
 
         if (Game.getActivePlayer().getPlayerSymbol() === 'X') {
