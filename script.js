@@ -37,10 +37,12 @@ const Gameboard = (() => {
         if (gameboard[squareIndex] != '') return;
         gameboard[squareIndex] = activePlayer.getPlayerSymbol();
         
-        Game.switchPlayerTurn();
-        DisplayMessage.showPlayerTurn()
         render();
         Game.checkWin();
+
+        if (Game.getRoundOver() === true) return;
+        Game.switchPlayerTurn();
+        DisplayMessage.showPlayerTurn();
     }
 
     const resetGameboard = () => {
@@ -114,7 +116,6 @@ const Game = (() => {
         let tieCondition = gameboard.every((square) => square != '');
         let X = [];
         let O = [];
-        let winningCombo = [];
         const winCombos = [
             [0, 1, 2],
             [0, 3, 6],
@@ -142,21 +143,22 @@ const Game = (() => {
         if (resultX === true) {
             scoreboard().XAddScore();
             DisplayMessage.showXScore();
-            DisplayMessage.showPlayerWin()
+            DisplayMessage.showPlayerWin();
             endRound();
         }
         else if (resultO ===  true) {
             scoreboard().OAddScore();
             DisplayMessage.showOScore();
-            DisplayMessage.showPlayerWin()
+            DisplayMessage.showPlayerWin();
             endRound();
         }
         else if (tieCondition === true && resultX === false && resultO === false) {
             scoreboard().tieAddScore();
             DisplayMessage.showTieScore();
-            DisplayMessage.showPlayerWin()
+            DisplayMessage.showPlayerTie();
             endRound();
         }
+        console.log('wala')
     }
 
     const scoreboard = () => {
@@ -173,12 +175,15 @@ const Game = (() => {
 
     const endRound = () => {
         roundOver = true;
-        switchPlayerTurn();
+        
+        console.log(getActivePlayer().getPlayerName())
     }
 
-    const setRoundToFalse = () => roundOver = 'false';
+    const setRoundToFalse = () => roundOver = false;
 
-    return {start, eventListen, switchPlayerTurn, getActivePlayer, checkWin, scoreboard, setRoundToFalse}
+    const getRoundOver = () => roundOver;
+
+    return {start, eventListen, switchPlayerTurn, getActivePlayer, checkWin, scoreboard, setRoundToFalse, getRoundOver}
 })();
 
 const DisplayMessage = (() => {
@@ -195,6 +200,10 @@ const DisplayMessage = (() => {
         playerTurn.innerHTML = `${Game.getActivePlayer().getPlayerName()} Wins!`;
     }
 
+    const showPlayerTie = () => {
+        playerTurn.innerHTML = "It's a tie!";
+    }
+
     const showXScore = () => {
         player1Score.textContent = Game.scoreboard().getXScore();
     }
@@ -204,10 +213,10 @@ const DisplayMessage = (() => {
     }
 
     const showTieScore = () => {
-        tieScore.textContent = Game.scoreboard().tieScore();
+        tieScore.textContent = Game.scoreboard().getTie();
     }
 
-    return {showPlayerTurn, showPlayerWin, showXScore, showOScore, showTieScore}
+    return {showPlayerTurn, showPlayerWin, showPlayerTie, showXScore, showOScore, showTieScore}
 })();
 
 
